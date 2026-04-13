@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https:hithub.com/bvskarthik18/terraform-aws-jenkins.git'
+                git 'https://github.com/bvskarthik18/terraform-iac-pipeline.git'
             }
         }
         stage('Terraform Init') {
