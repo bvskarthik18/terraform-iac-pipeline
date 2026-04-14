@@ -21,7 +21,7 @@ pipeline {
         }
         stage('Terraform Format Check') {
             steps {
-                sh 'terraform fmt -check'
+                sh 'terraform fmt -recursive'
             }
         }
         stage('Terraform Validate') {
