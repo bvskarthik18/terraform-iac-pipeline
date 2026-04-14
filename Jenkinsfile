@@ -10,8 +10,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main',
-                url: 'https://github.com/bvskarthik18/terraform-iac-pipeline.git'
+                git 'https://github.com/bvskarthik18/terraform-iac-pipeline.git'
             }
         }
         stage('Terraform Init') {
@@ -21,7 +20,7 @@ pipeline {
         }
         stage('Terraform Format Check') {
             steps {
-                sh 'terraform fmt -recursive'
+                sh 'terraform fmt -check'
             }
         }
         stage('Terraform Validate') {
@@ -44,14 +43,20 @@ pipeline {
                 sh 'terraform apply -auto-approve tfplan'
             }
         }
+        stage('Terraform Destroy') {
+            steps {
+                input message: 'Do you want to destroy the infrastructure?', ok: 'Destroy'
+                sh 'terraform destroy -auto-approve'
+            }
+        }
     }
 
     post {
         success {
-            echo 'Terraform applied successfully!'
+            echo 'Pipeline completed successfully!'
         }
         failure {
-            echo 'Terraform apply failed.'
+            echo 'Pipeline failed.'
         }
     }
 }
