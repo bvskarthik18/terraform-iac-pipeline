@@ -10,7 +10,8 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/bvskarthik18/terraform-iac-pipeline.git'
+                git branch: 'main',
+                url: 'https://github.com/bvskarthik18/terraform-iac-pipeline.git'
             }
         }
         stage('Terraform Init') {
